@@ -66,4 +66,5 @@ jobs:
         with:
           app-name: "uni-socialmedia-demo"
           slot-name: "Production"
-          package: .
+          package: release.zip
+
