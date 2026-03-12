@@ -23,14 +23,16 @@ jobs:
         with:
           node-version: "24.x"
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Generate Prisma Client and run migrations
         run: |
           npx prisma generate
           npx prisma migrate deploy
 
-      - name: npm install, build, and test
+      - name: build and test
         run: |
-          npm install
           npm run build --if-present
           npm run test --if-present
           npm run start
