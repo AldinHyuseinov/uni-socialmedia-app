@@ -32,7 +32,7 @@ export const UserSignUpSchema = z.object({
 });
 
 export const UserSignInSchema = z.object({
-  email: z.email("Невалиден имейл адрес"),
+  emailOrUsername: z.string().min(1, "Имейлът или потребителското име е задължително"),
   password: z.string().min(1, "Паролата е задължителна"),
 });
 

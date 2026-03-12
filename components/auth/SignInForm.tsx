@@ -5,10 +5,10 @@ import { AuthForm } from "./AuthForm";
 
 const signInFields = [
   {
-    name: "email",
-    label: "Email",
-    type: "email",
-    placeholder: "Enter your email",
+    name: "emailOrUsername",
+    label: "Email or Username",
+    type: "text",
+    placeholder: "Enter your email or username",
   },
   {
     name: "password",
