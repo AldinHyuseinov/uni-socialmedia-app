@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - uni-socialmedia-demo
 on:
   push:
     branches:
-      - main
+      - mssql-migration
   workflow_dispatch:
 
 jobs:
@@ -45,9 +45,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0AB9C104547D4CDFB090D0BDA4D65CE1 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A2DA79A46C4A40BD87D0B8A7B0E1C43C }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A4B4E04BE74E4BAB8065E55820C37126 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4A199BF59C714AF8B5E6060A685FFF74 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A335D917A0FF49C58475E28227B53080 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_03E706BA61264BDEB5110663A1EDA741 }}
 
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
