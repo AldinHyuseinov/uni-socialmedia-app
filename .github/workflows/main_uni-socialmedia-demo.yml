@@ -31,7 +31,7 @@ jobs:
 
       - name: Prisma setup
         run: |
-          npx prisma migrate deploy
+          npx prisma db push
           npx prisma generate
 
       - name: Build
