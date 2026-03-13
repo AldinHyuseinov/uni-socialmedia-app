@@ -20,6 +20,8 @@ export const signUpAction = validatedAction(UserSignUpSchema, async (data) => {
       },
     });
   } catch (error) {
+    console.log(error);
+
     if (isAPIError(error)) {
       return { error: "Имейлът вече е регистриран" };
     }
