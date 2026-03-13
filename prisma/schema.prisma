@@ -43,9 +43,9 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
+  accessToken  String?   @db.NVarChar(Max)
+  refreshToken String?   @db.NVarChar(Max)
+  idToken      String?   @db.NVarChar(Max) 
   accessTokenExpiresAt  DateTime?
   refreshTokenExpiresAt DateTime?
   scope                 String?
