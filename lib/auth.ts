@@ -5,6 +5,8 @@ import { username } from "better-auth/plugins";
 import { nextCookies } from "better-auth/next-js";
 
 export const auth = betterAuth({
+  trustedProxies: true,
+
   database: prismaAdapter(prisma, {
     provider: "sqlserver",
   }),
