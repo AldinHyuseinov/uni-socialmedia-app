@@ -12,6 +12,24 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "sqlserver",
   }),
+
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          if (!user.username) {
+            const baseName = user.email.split("@")[0];
+            const randomNum = Math.floor(Math.random() * 100000);
+
+            user.username = `${baseName}_${randomNum}`;
+          }
+
+          return { data: user };
+        },
+      },
+    },
+  },
+
   socialProviders: {
     google: {
       prompt: "select_account",

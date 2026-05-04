@@ -11,8 +11,6 @@ import { z } from "zod";
 export const signUpAction = validatedAction(UserSignUpSchema, async (data) => {
   const { email, password, name } = data;
 
-  const generatedUsername = email.split("@")[0] + "_" + Math.floor(Math.random() * 100000);
-
   try {
     await auth.api.signUpEmail({
       headers: await headers(),
@@ -20,7 +18,6 @@ export const signUpAction = validatedAction(UserSignUpSchema, async (data) => {
         email,
         password,
         name,
-        username: generatedUsername,
       },
     });
   } catch (error) {
