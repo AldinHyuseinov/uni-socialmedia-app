@@ -34,7 +34,7 @@ export function FormField({
           id={name}
           name={name}
           defaultValue={value || ""}
-          className={`w-full bg-brand-navy text-white placeholder-white/70 rounded-xl py-3.5 ${icon ? "pl-12" : "pl-4"} pr-4 focus:outline-none focus:ring-2 ${error ? "focus:ring-brand-error ring-1 ring-brand-error/50" : "focus:ring-brand-accent/50"} font-bold uppercase tracking-wide transition-all`}
+          className={`w-full bg-brand-navy text-white placeholder-white/70 rounded-xl py-3.5 ${icon ? "pl-12" : "pl-4"} pr-4 focus:outline-none focus:ring-2 ${error ? "focus:ring-brand-error ring-1 ring-brand-error/50" : "focus:ring-brand-accent/50"} font-bold tracking-wide transition-all`}
           placeholder={placeholder}
         />
       </div>
