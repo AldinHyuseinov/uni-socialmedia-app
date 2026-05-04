@@ -14,7 +14,7 @@ export default async function SignIn() {
   }
 
   return (
-    <AuthPage title="Sign In">
+    <AuthPage title="Впиши се!">
       <SignInForm />
     </AuthPage>
   );
