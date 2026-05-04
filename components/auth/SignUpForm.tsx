@@ -29,11 +29,5 @@ const signUpFields = [
 ];
 
 export default function SignUpForm() {
-  return (
-    <AuthForm
-      fields={signUpFields}
-      action={signUpAction}
-      submitLabel="РЕГИСТРАЦИЯ"
-    />
-  );
+  return <AuthForm fields={signUpFields} action={signUpAction} submitLabel="РЕГИСТРАЦИЯ" />;
 }
