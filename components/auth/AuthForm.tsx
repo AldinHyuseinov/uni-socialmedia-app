@@ -31,10 +31,7 @@ export function AuthForm({ fields, action, submitLabel }: AuthFormProps) {
           ))}
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-brand-navy hover:bg-brand-navy-dark text-white font-bold uppercase tracking-widest py-3.5 px-4 rounded-xl transition-colors duration-300 shadow-sm"
-          >
+          <button type="submit" className="btn w-full">
             {submitLabel}
           </button>
 

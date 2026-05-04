@@ -22,3 +22,7 @@
   /* A very dark translucent red for error backgrounds */
   --color-brand-error-bg: rgba(69, 10, 10, 0.4);
 }
+
+.btn {
+  @apply bg-brand-navy hover:bg-brand-navy-dark text-white px-6 py-3.5 rounded-xl font-bold uppercase tracking-wider text-sm transition-colors duration-300 shadow-sm cursor-pointer;
+}
