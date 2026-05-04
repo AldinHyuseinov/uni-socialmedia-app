@@ -1,3 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+  /* The vibrant royal blue background */
+  --color-brand-primary: #3b63ed;
 
+  /* The deep navy used for inputs and buttons */
+  --color-brand-navy: #1633a6;
+
+  /* Darker navy for hover states */
+  --color-brand-navy-dark: #112782;
+
+  /* The yellowish/cream text and borders */
+  --color-brand-accent: #fde68a;
+
+  /* The off-white used for the heading text */
+  --color-brand-cream: #fdf8e1;
+
+  /* A bright, high-contrast rose-red that pops against blue */
+  --color-brand-error: #ff9494;
+
+  /* A very dark translucent red for error backgrounds */
+  --color-brand-error-bg: rgba(69, 10, 10, 0.4);
+}
+
+.btn {
+  @apply bg-brand-navy hover:bg-brand-navy-dark text-white px-6 py-3.5 rounded-xl font-bold uppercase tracking-wider text-sm transition-colors duration-300 shadow-sm cursor-pointer;
+}

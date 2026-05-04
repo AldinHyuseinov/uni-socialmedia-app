@@ -2,28 +2,38 @@
 
 import { signUpAction } from "@/actions/auth-actions";
 import { AuthForm } from "./AuthForm";
+import { LockIcon, MailIcon, UserIcon } from "../Icons";
 
 const signUpFields = [
   {
     name: "name",
-    label: "Name",
+    label: "Name", // Kept for accessibility
     type: "text",
-    placeholder: "Enter your name",
+    placeholder: "ИМЕ",
+    icon: <UserIcon />,
   },
   {
     name: "email",
     label: "Email",
     type: "email",
-    placeholder: "Enter your email",
+    placeholder: "Е-ПОЩА",
+    icon: <MailIcon />,
   },
   {
     name: "password",
     label: "Password",
     type: "password",
-    placeholder: "Enter your password",
+    placeholder: "ПАРОЛА",
+    icon: <LockIcon />,
   },
 ];
 
 export default function SignUpForm() {
-  return <AuthForm fields={signUpFields} action={signUpAction} submitLabel="Sign Up" />;
+  return (
+    <AuthForm
+      fields={signUpFields}
+      action={signUpAction}
+      submitLabel="РЕГИСТРАЦИЯ"
+    />
+  );
 }

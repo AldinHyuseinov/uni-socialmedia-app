@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { signOutAction } from "@/actions/auth-actions";
+import { CapIcon } from "./Icons";
 
 export default async function Navigation() {
   const session = await auth.api.getSession({
@@ -9,45 +10,38 @@ export default async function Navigation() {
   });
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-brand-primary border-b border-brand-accent/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="shrink-0">
+        <div className="flex justify-between items-center h-16 p-4">
+          <div className="shrink-0 flex items-center">
             <Link
               href="/"
-              className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300"
+              className="flex items-center gap-2 text-2xl font-black text-white tracking-widest uppercase hover:text-blue-200 transition-colors duration-300"
             >
-              Home
+              <CapIcon />
+              STUDSU
             </Link>
           </div>
 
           {session ? (
             <>
               <div className="flex items-center space-x-4">
-                <span className="text-gray-800">{session.user?.name}</span>
+                <span className="text-white font-bold">Здравейте, {session.user.name}!</span>
               </div>
               <form action={signOutAction}>
-                <button
-                  type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors duration-300 shadow-sm"
-                >
-                  Sign Out
+                <button type="submit" className="btn">
+                  Изход
                 </button>
               </form>
             </>
           ) : (
             <div className="flex items-center space-x-4">
-              <Link
-                href="/signin"
-                className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300"
-              >
-                Sign In
+              <Link href="/signup" className="btn">
+                Регистрация
               </Link>
-              <Link
-                href="/signup"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors duration-300 shadow-sm"
-              >
-                Sign Up
+
+              <Link href="/signin" className="btn">
+                Вписване
               </Link>
             </div>
           )}

@@ -20,12 +20,14 @@ export const signUpAction = validatedAction(UserSignUpSchema, async (data) => {
       },
     });
   } catch (error) {
+    console.log(error);
+
     if (isAPIError(error)) {
       return { error: "Имейлът вече е регистриран" };
     }
     return { error: "Възникна грешка по време на регистрацията" };
   }
-  redirect("/");
+  redirect("/?signup-success=true");
 });
 
 export const signInAction = validatedAction(UserSignInSchema, async (data) => {
@@ -56,11 +58,12 @@ export const signInAction = validatedAction(UserSignInSchema, async (data) => {
     }
     return { error: "Възникна грешка по време на входа" };
   }
-  redirect("/");
+  redirect("/?signin-success=true");
 });
 
 export async function signOutAction() {
   await auth.api.signOut({
     headers: await headers(),
   });
+  redirect("/?signout-success=true");
 }

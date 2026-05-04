@@ -14,7 +14,7 @@ export default async function SignUp() {
   }
 
   return (
-    <AuthPage title="Sign Up">
+    <AuthPage title="Регистрирай се!">
       <SignUpForm />
     </AuthPage>
   );

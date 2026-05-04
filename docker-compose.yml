@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "YourStrong!Passw0rd" # Must contain upper, lower, number, and symbol
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+  app:
+    image: aldin00/uni-social:latest
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.production
+    depends_on:
+      - sqlserver
+
+volumes:
+  sqlserver_data:

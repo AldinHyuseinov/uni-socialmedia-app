@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import * as z from "zod";
 
 export type ActionState = {
@@ -41,6 +42,7 @@ interface Field {
   label: string;
   type?: string;
   placeholder?: string;
+  icon?: React.ReactNode;
 }
 
 export interface AuthFormProps {
@@ -56,4 +58,15 @@ export interface FormFieldProps {
   placeholder?: string;
   value?: string;
   error?: string;
+  icon?: React.ReactNode;
 }
+
+export interface IconProps {
+  className?: string;
+}
+
+export type AlertBannerProps = {
+  type?: "warning" | "success" | "error";
+  children: ReactNode;
+  onClose?: () => void;
+};
