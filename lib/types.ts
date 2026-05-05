@@ -65,6 +65,13 @@ export interface IconProps {
   className?: string;
 }
 
+export interface LoaderProps {
+  size?: "sm" | "md" | "lg" | "xl";
+  color?: "white" | "primary" | "navy" | "accent";
+  text?: string;
+  variant?: "inline" | "centered" | "fullscreen";
+}
+
 export type AlertBannerProps = {
   type?: "warning" | "success" | "error";
   children: ReactNode;

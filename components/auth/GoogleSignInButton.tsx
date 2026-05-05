@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { GoogleIcon } from "../Icons";
+import Loader from "../Loader";
 
 export function GoogleSignInButton() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,10 +27,14 @@ export function GoogleSignInButton() {
       <button
         onClick={handleGoogleSignIn}
         disabled={isLoading}
-        className="w-full bg-white hover:bg-gray-200 text-gray-700 font-bold py-3.5 px-4 rounded-xl transition-colors duration-300 shadow-sm disabled:opacity-50 flex items-center justify-center gap-3 cursor-pointer"
+        className="w-full bg-white hover:bg-gray-200 text-gray-700 font-bold py-3.5 px-4 rounded-xl transition-colors duration-300 shadow-sm flex items-center justify-center gap-3 cursor-pointer"
       >
         <GoogleIcon />
-        {isLoading ? "Моля, изчакайте..." : "Продължи с Google"}
+        {isLoading ? (
+          <Loader size="sm" color="primary" text="Моля изчакайте..." />
+        ) : (
+          "Продължи с Google"
+        )}
       </button>
     </>
   );

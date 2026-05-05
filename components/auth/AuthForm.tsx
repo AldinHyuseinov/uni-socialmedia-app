@@ -5,6 +5,7 @@ import { ActionState, AuthFormProps } from "@/lib/types";
 import { useActionState } from "react";
 import { GoogleSignInButton } from "./GoogleSignInButton";
 import AlertBanner from "../notification/AlertBanner";
+import Loader from "../Loader";
 
 export function AuthForm({ fields, action, submitLabel }: AuthFormProps) {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(action, {});
@@ -12,7 +13,7 @@ export function AuthForm({ fields, action, submitLabel }: AuthFormProps) {
   return (
     <div className="w-full space-y-4">
       {pending ? (
-        <p className="text-white font-bold text-center mb-4">Моля, изчакайте...</p>
+        <Loader size="lg" color="white" variant="centered" text="Моля изчакайте..." />
       ) : (
         <form action={formAction} className="space-y-4">
           {state.error && <AlertBanner type="error">{state.error}</AlertBanner>}
