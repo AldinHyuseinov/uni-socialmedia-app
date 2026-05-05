@@ -1,47 +1,28 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { useState } from "react";
 import AlertBanner from "./AlertBanner";
 
 export default function Toast() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [isVisible, setIsVisible] = useState(true);
 
-  const succesfullLogin = searchParams.get("signin-success") === "true";
-  const succesfullRegister = searchParams.get("signup-success") === "true";
-  const succesfullSignout = searchParams.get("signout-success") === "true";
+  if (pathname !== "/") return null;
 
-  if (!isVisible || (!succesfullLogin && !succesfullRegister && !succesfullSignout)) {
-    return null;
-  }
+  const params = [
+    { key: "signup-success", msg: "Успешно създадохте вашият профил!", type: "success" },
+    { key: "signin-success", msg: "Успешно влезнахте в профила!", type: "success" },
+    { key: "google-success", msg: "Успешно се вписахте с вашия Google профил!", type: "success" },
+    { key: "signout-success", msg: "Успешно излезнахте от профила!", type: "success" },
+  ] as const;
 
-  const handleClose = () => {
-    setIsVisible(false);
-  };
+  const activeParam = params.find((p) => searchParams.get(p.key) === "true");
 
-  if (pathname === "/") {
-    if (succesfullRegister) {
-      return (
-        <AlertBanner type="success" onClose={handleClose}>
-          Успешно създадохте вашият профил!
-        </AlertBanner>
-      );
-    } else if (succesfullLogin) {
-      return (
-        <AlertBanner type="success" onClose={handleClose}>
-          <span>Успешно влезнахте в профила!</span>
-        </AlertBanner>
-      );
-    } else if (succesfullSignout) {
-      return (
-        <AlertBanner type="success" onClose={handleClose}>
-          <span>Успешно излезнахте от профила!</span>
-        </AlertBanner>
-      );
-    }
-  }
+  if (!activeParam) return null;
 
-  return null;
+  return (
+    <AlertBanner key={activeParam.key} type={activeParam.type} isToast={true}>
+      {activeParam.msg}
+    </AlertBanner>
+  );
 }

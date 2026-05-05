@@ -27,7 +27,7 @@ export const UserSignUpSchema = z.object({
     .refine((password) => /[0-9]/.test(password), {
       message: "Паролата трябва да съдържа поне едно число",
     })
-    .refine((password) => /[!@#$%^&*]/.test(password), {
+    .refine((password) => /[^A-Za-z0-9]/.test(password), {
       message: "Паролата трябва да съдържа поне един специален символ",
     }),
 });
@@ -69,4 +69,5 @@ export type AlertBannerProps = {
   type?: "warning" | "success" | "error";
   children: ReactNode;
   onClose?: () => void;
+  isToast?: boolean;
 };

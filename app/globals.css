@@ -21,8 +21,33 @@
 
   /* A very dark translucent red for error backgrounds */
   --color-brand-error-bg: rgba(69, 10, 10, 0.4);
+
+  --animate-toast-in: slide-in 0.4s ease-out;
+  --animate-toast-out: slide-out 0.4s ease-in forwards;
 }
 
 .btn {
   @apply bg-brand-navy hover:bg-brand-navy-dark text-white px-6 py-3.5 rounded-xl font-bold uppercase tracking-wider text-sm transition-colors duration-300 shadow-sm cursor-pointer;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
 }

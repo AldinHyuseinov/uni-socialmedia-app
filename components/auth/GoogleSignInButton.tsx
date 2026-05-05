@@ -12,7 +12,7 @@ export function GoogleSignInButton() {
     setIsLoading(true);
     setError(null);
     try {
-      await authClient.signIn.social({ provider: "google", callbackURL: "/" });
+      await authClient.signIn.social({ provider: "google", callbackURL: "/?google-success=true" });
     } catch (err) {
       console.log(err);
       setError("Нещо се обърка. Моля, опитайте отново.");
