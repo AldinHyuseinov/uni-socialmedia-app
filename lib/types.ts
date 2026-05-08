@@ -82,6 +82,14 @@ export interface RichTextEditorProps {
   onChange: (html: string) => void;
 }
 
+export interface PostProps {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: Date;
+  author: { name: string; image?: string | null };
+}
+
 export type AlertBannerProps = {
   type?: "warning" | "success" | "error";
   children: ReactNode;

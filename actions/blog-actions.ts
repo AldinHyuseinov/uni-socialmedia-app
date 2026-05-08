@@ -79,3 +79,20 @@ export const createPostAction = validatedAction(PostCreateSchema, async (data) =
   // 3. Redirect back to feed
   redirect("/?publish-success=true");
 });
+
+export async function getPosts() {
+  try {
+    const posts = await prisma.posts.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        author: {
+          select: { name: true },
+        },
+      },
+    });
+    return posts;
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+    return [];
+  }
+}
