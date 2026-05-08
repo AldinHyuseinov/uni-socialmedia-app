@@ -20,6 +20,8 @@ model User {
   accounts        Account[]
   sessions        Session[]
 
+  Posts Posts[]
+
   @@map("user")
 }
 
@@ -68,4 +70,18 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model Posts {
+  id          String   @id @default(cuid())
+  title       String
+  content     String   @db.NVarChar(Max)  
+  
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("post")
 }

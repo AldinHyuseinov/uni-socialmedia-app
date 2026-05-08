@@ -37,6 +37,11 @@ export const UserSignInSchema = z.object({
   password: z.string().min(1, "Паролата е задължителна"),
 });
 
+export const PostCreateSchema = z.object({
+  title: z.string().min(2, "Заглавието трябва да е поне 2 символа."),
+  content: z.string().min(2, "Съдържанието трябва да е поне 2 символа."),
+});
+
 interface Field {
   name: string;
   label: string;
@@ -70,6 +75,11 @@ export interface LoaderProps {
   color?: "white" | "primary" | "navy" | "accent";
   text?: string;
   variant?: "inline" | "centered" | "fullscreen";
+}
+
+export interface RichTextEditorProps {
+  content: string;
+  onChange: (html: string) => void;
 }
 
 export type AlertBannerProps = {

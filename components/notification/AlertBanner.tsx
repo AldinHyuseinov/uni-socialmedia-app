@@ -73,13 +73,16 @@ export default function AlertBanner({
       >
         {children}
       </div>
-      <button
-        onClick={handleDismiss}
-        className={`shrink-0 p-1 rounded-md opacity-60 hover:opacity-100 hover:bg-black/10 transition-all cursor-pointer ${config.text}`}
-        type="button"
-      >
-        <CrossIcon className="w-4 h-4" />
-      </button>
+      {onClose && (
+        <button
+          onClick={handleDismiss}
+          className={`shrink-0 p-1 rounded-md opacity-60 hover:opacity-100 hover:bg-black/10 transition-all cursor-pointer ${config.text}`}
+          type="button"
+          title="Затвори"
+        >
+          <CrossIcon className="w-4 h-4" />
+        </button>
+      )}
     </div>
   );
 }
