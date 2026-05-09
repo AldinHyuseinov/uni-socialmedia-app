@@ -9,7 +9,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Stud SU | Начало",
+  title: "Stud SU",
   description: "Социален сайт за студенти и преподаватели",
 };
 

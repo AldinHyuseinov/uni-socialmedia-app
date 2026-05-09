@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Stud SU | Вписване",
+  title: "Stud SU | Вход",
 };
 
 export default async function SignIn() {

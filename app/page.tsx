@@ -6,6 +6,11 @@ import { headers } from "next/headers";
 import { Suspense } from "react";
 import Toast from "@/components/notification/Toast";
 import Loader from "@/components/Loader";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Stud SU | Начало",
+};
 
 export default async function MainFeedPage() {
   const [session, posts] = await Promise.all([

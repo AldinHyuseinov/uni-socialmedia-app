@@ -4,6 +4,52 @@ import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import DeletePostButton from "@/components/blog/DeletePostButton";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
+
+  // Fetch the post just for the metadata
+  const post = await prisma.posts.findUnique({
+    where: { id: id },
+    include: { author: true },
+  });
+
+  // Fallback if post doesn't exist
+  if (!post) {
+    return {
+      title: "Stud SU | Публикацията не е намерена",
+      description: "Тази публикация не съществува или е изтрита.",
+    };
+  }
+
+  // Strip HTML tags to create a clean SEO description (max ~160 chars)
+  const plainTextExcerpt = post.content
+    .replace(/<[^>]*>?/gm, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const description =
+    plainTextExcerpt.length > 160 ? `${plainTextExcerpt.substring(0, 157)}...` : plainTextExcerpt;
+
+  return {
+    title: `Stud SU | ${post.title}`,
+    description: description,
+    authors: [{ name: post.author.name || "Анонимен" }],
+    openGraph: {
+      title: post.title,
+      description: description,
+      siteName: "Stud SU",
+      type: "article",
+      publishedTime: post.createdAt.toISOString(),
+      authors: [post.author.name || "Анонимен"],
+    },
+  };
+}
 
 export default async function ViewBlogPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
