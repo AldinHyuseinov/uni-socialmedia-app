@@ -53,8 +53,11 @@ export const createPostAction = validatedAction(PostCreateSchema, async (data) =
         "td",
         "pre",
         "img",
+        "mark",
       ],
-      ALLOWED_ATTR: ["href", "name", "target", "src", "class", "alt", "title"],
+      ALLOWED_ATTR: ["href", "name", "target", "src", "class", "alt", "title", "style"],
+      ALLOWED_URI_REGEXP:
+        /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
     });
 
     // Optional: Prevent users from submitting an empty post that only contains empty tags (like "<p></p>")

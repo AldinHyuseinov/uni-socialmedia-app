@@ -111,3 +111,118 @@ export const BinIcon = ({ className = "w-4 h-4" }) => (
     />
   </svg>
 );
+
+export const ListBulletIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M4 6h16M4 12h16M4 18h16M8 6h.01M8 12h.01M8 18h.01"
+    />
+  </svg>
+);
+
+export const ListOrderedIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M10 6h10M10 12h10M10 18h10M4 6h1v4M4 10h2M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"
+    />
+  </svg>
+);
+
+export const QuoteIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+  </svg>
+);
+
+export const ImageIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+    />
+  </svg>
+);
+
+export const UndoIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+    />
+  </svg>
+);
+
+export const RedoIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6"
+    />
+  </svg>
+);
+
+export const SpinnerIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={`${className} animate-spin`} fill="none" viewBox="0 0 24 24">
+    <circle
+      className="opacity-25"
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeWidth="4"
+    ></circle>
+    <path
+      className="opacity-75"
+      fill="currentColor"
+      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+    ></path>
+  </svg>
+);
+
+export const AlignLeftIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h10M4 18h16" />
+  </svg>
+);
+
+export const AlignCenterIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M7 12h10M4 18h16" />
+  </svg>
+);
+
+export const AlignRightIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M10 12h10M4 18h16" />
+  </svg>
+);
+
+export const AlignJustifyIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+);
+
+export const HighlightIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+    />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18" />
+  </svg>
+);
+
+export const HorizontalRuleIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16" />
+  </svg>
+);
