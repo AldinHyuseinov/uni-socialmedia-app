@@ -10,38 +10,51 @@ export default async function Navigation() {
   });
 
   return (
-    <nav className="sticky top-0 z-40 bg-brand-primary border-b border-brand-accent/40">
+    <nav className="sticky top-0 z-40 bg-brand-primary border-b border-brand-accent/40 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 p-4">
+        <div className="flex justify-between items-center h-16">
+          {/* LEFT SIDE: Brand Logo */}
           <div className="shrink-0 flex items-center">
             <Link
               href="/"
-              className="flex items-center gap-2 text-2xl font-black text-white tracking-widest uppercase hover:text-blue-200 transition-colors duration-300"
+              className="flex items-center gap-1.5 sm:gap-2 text-xl font-black text-white tracking-widest uppercase hover:text-brand-accent transition-colors duration-300"
             >
-              <CapIcon />
+              <CapIcon className="w-6 h-6" />
               STUDSU
             </Link>
           </div>
 
+          {/* RIGHT SIDE: Dynamic Auth Area */}
           {session ? (
-            <>
-              <div className="flex items-center space-x-4">
-                <span className="text-white font-bold">Здравейте, {session.user.name}!</span>
-              </div>
+            <div className="flex items-center gap-3 sm:gap-4">
+              <span className="text-white font-bold text-sm hidden sm:inline truncate max-w-45">
+                Здравейте, {session.user.name}!
+              </span>
+
               <form action={signOutAction}>
-                <button type="submit" className="btn">
+                <button
+                  type="submit"
+                  className="btn text-xs sm:text-sm px-3 py-1.5 sm:px-5 sm:py-2 transition-all active:scale-95"
+                >
                   Изход
                 </button>
               </form>
-            </>
+            </div>
           ) : (
-            <div className="flex items-center space-x-4">
-              <Link href="/signup" className="btn">
-                Регистрация
+            // LOGGED OUT STATE
+            <div className="flex items-center gap-3 sm:gap-5">
+              <Link
+                href="/signin"
+                className="text-white font-bold uppercase tracking-wider text-xs sm:text-sm hover:text-brand-accent transition-colors"
+              >
+                Вход
               </Link>
 
-              <Link href="/signin" className="btn">
-                Вписване
+              <Link
+                href="/signup"
+                className="btn text-xs sm:text-sm px-3 py-1.5 sm:px-5 sm:py-2 transition-all active:scale-95 shadow-sm"
+              >
+                Регистрация
               </Link>
             </div>
           )}

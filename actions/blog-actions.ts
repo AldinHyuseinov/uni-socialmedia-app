@@ -96,3 +96,40 @@ export async function getPosts() {
     return [];
   }
 }
+
+export async function deletePostAction(postId: string) {
+  // 1. Verify user is logged in
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  if (!session) {
+    return { error: "Не сте влезли в профила си." };
+  }
+
+  try {
+    // 2. Fetch the post to check ownership
+    const post = await prisma.posts.findUnique({
+      where: { id: postId },
+      select: { authorId: true }, // We only need the authorId for this check
+    });
+
+    if (!post) {
+      return { error: "Публикацията не е намерена." };
+    }
+
+    // 3. SECURITY: Ensure the logged-in user is the actual author
+    if (post.authorId !== session.user.id) {
+      return { error: "Нямате права да изтриете тази публикация." };
+    }
+
+    // 4. Delete the post
+    await prisma.posts.delete({
+      where: { id: postId },
+    });
+  } catch (error) {
+    console.error("Delete post error:", error);
+    return { error: "Възникна грешка при изтриването." };
+  }
+
+  // 5. Redirect back to home with a success message (placed outside try/catch)
+  redirect("/?delete-success=true");
+}

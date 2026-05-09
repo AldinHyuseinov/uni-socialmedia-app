@@ -58,7 +58,9 @@ export default function AlertBanner({
   if (!isRendered) return null;
 
   const { Icon } = config;
-  const layoutClasses = isToast ? "fixed z-50 shadow-2xl w-full max-w-sm" : "shadow-sm";
+  const layoutClasses = isToast
+    ? "fixed top-16 left-1/2 -translate-x-1/2 z-50 shadow-2xl w-full max-w-sm"
+    : "shadow-sm";
   const animationClass = isToast ? (isExiting ? "animate-toast-out" : "animate-toast-in") : "";
 
   return (
