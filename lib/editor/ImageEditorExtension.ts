@@ -42,28 +42,27 @@ export const ImageUploadExtension = Image.extend({
         parseHTML: (element) => element.getAttribute("data-align") || "center",
       },
       width: {
-        default: "100%",
-        parseHTML: (element) => element.getAttribute("data-width") || "100%",
+        default: "50%",
+        parseHTML: (element) => element.getAttribute("data-width") || "50%",
       },
     };
   },
 
-  // Overwrite how the image is rendered to the DOM to apply the styles
   renderHTML({ HTMLAttributes }) {
     const align = HTMLAttributes.align || "center";
-    const width = HTMLAttributes.width || "100%";
+    const width = HTMLAttributes.width || "50%";
 
-    let styles = `width: ${width}; transition: all 0.3s ease;`;
-    const classes = "rounded-xl shadow-lg border border-gray-100 cursor-pointer ";
+    // Force display: block so it sits on its own line, breaking the text flow naturally
+    let styles = `width: ${width}; display: block; transition: all 0.3s ease;`;
+    const classes = "rounded-xl shadow-lg border border-gray-100 cursor-pointer my-6 "; // Added my-6 for vertical spacing
 
-    // Apply Float logic
-    if (align === "left") {
+    if (align === 'left') {
       styles += " float: left; margin-right: 1.5rem; margin-bottom: 1rem;";
-    } else if (align === "right") {
+    } else if (align === 'right') {
       styles += " float: right; margin-left: 1.5rem; margin-bottom: 1rem;";
     } else {
-      styles +=
-        " display: block; margin-left: auto; margin-right: auto; margin-top: 1.5rem; margin-bottom: 1.5rem; clear: both;";
+      // Center acts as a block and safely clears any previous floats
+      styles += " display: block; margin-left: auto; margin-right: auto; margin-top: 1.5rem; margin-bottom: 1.5rem; clear: both;";
     }
 
     return [

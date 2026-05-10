@@ -49,8 +49,25 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
     content: content,
     editorProps: {
       attributes: {
-        class:
-          "prose prose-blue max-w-none w-full min-h-[400px] focus:outline-none text-gray-800 p-6 md:p-8",
+        class: `
+          prose prose-lg prose-blue max-w-none w-full min-h-[400px] focus:outline-none text-gray-800 p-6 md:p-8
+          
+          /* 1. Trap floats inside the editor */
+          flow-root
+          
+          /* 2. Basic image/mark styling */
+          prose-img:m-0 
+          prose-mark:bg-brand-accent/50 prose-mark:text-brand-navy prose-mark:px-1 prose-mark:rounded-md
+          
+          /* 3. Force headings and lines to reset the layout so text doesn't bunch up */
+          prose-headings:clear-both prose-headings:pt-4
+          prose-hr:clear-both
+          
+          /* 4. Selection Ring */
+          [&_img.ProseMirror-selectednode]:outline [&_img.ProseMirror-selectednode]:outline-4 [&_img.ProseMirror-selectednode]:outline-brand-primary [&_img.ProseMirror-selectednode]:outline-offset-2
+        `
+          .replace(/\s+/g, " ")
+          .trim(),
       },
     },
     onTransaction: () => setForceUpdate((prev) => prev + 1),
