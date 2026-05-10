@@ -39,11 +39,7 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       Highlight.configure({
         multicolor: false,
       }),
-      ImageUploadExtension.configure({
-        HTMLAttributes: {
-          class: "rounded-xl max-w-full h-auto my-6 shadow-lg border border-gray-100",
-        },
-      }),
+      ImageUploadExtension,
       Placeholder.configure({
         placeholder: "Започнете да пишете... (Можете да влачите и пускате снимки тук!)",
         emptyEditorClass:
@@ -60,6 +56,8 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
     onTransaction: () => setForceUpdate((prev) => prev + 1),
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
   });
+
+  if (!editor) return null;
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -81,12 +79,34 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
     }
   };
 
-  if (!editor) return null;
+  const setWidth = (width: string) => {
+    editor.chain().focus().updateAttributes("image", { width }).run();
+  };
+
+  const handleAlign = (alignment: "left" | "center" | "right" | "justify") => {
+    if (editor?.isActive("image")) {
+      // If an image is selected, update its custom align attribute
+      const imgAlign = alignment === "justify" ? "center" : alignment; // Justify centers images
+      editor.chain().focus().updateAttributes("image", { align: imgAlign }).run();
+    } else {
+      // Otherwise, align the text normally
+      editor?.chain().focus().setTextAlign(alignment).run();
+    }
+  };
+
+  const isAlignActive = (alignment: string) => {
+    if (editor.isActive("image")) {
+      return editor.isActive("image", { align: alignment });
+    }
+    return editor.isActive({ textAlign: alignment });
+  };
 
   const btnClass = (isActive: boolean) =>
     `p-2 rounded-lg transition-colors flex items-center justify-center ${
       isActive ? "bg-brand-navy text-white shadow-sm" : "text-gray-600 hover:bg-gray-200"
     }`;
+
+  const isImageSelected = editor.isActive("image");
 
   return (
     <div className="flex flex-col flex-1 border border-gray-200 rounded-2xl focus-within:border-brand-primary/50 focus-within:ring-4 focus-within:ring-brand-primary/10 transition-all bg-white relative">
@@ -159,34 +179,74 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
 
         <button
           type="button"
-          onClick={() => editor.chain().focus().setTextAlign("left").run()}
-          className={btnClass(editor.isActive({ textAlign: "left" }))}
+          onClick={() => handleAlign("left")}
+          className={btnClass(isAlignActive("left"))}
         >
           <AlignLeftIcon />
         </button>
         <button
           type="button"
-          onClick={() => editor.chain().focus().setTextAlign("center").run()}
-          className={btnClass(editor.isActive({ textAlign: "center" }))}
+          onClick={() => handleAlign("center")}
+          className={btnClass(isAlignActive("center"))}
         >
           <AlignCenterIcon />
         </button>
         <button
           type="button"
-          onClick={() => editor.chain().focus().setTextAlign("right").run()}
-          className={btnClass(editor.isActive({ textAlign: "right" }))}
+          onClick={() => handleAlign("right")}
+          className={btnClass(isAlignActive("right"))}
         >
           <AlignRightIcon />
         </button>
-        <button
-          type="button"
-          onClick={() => editor.chain().focus().setTextAlign("justify").run()}
-          className={btnClass(editor.isActive({ textAlign: "justify" }))}
-        >
-          <AlignJustifyIcon />
-        </button>
 
-        <div className="w-px h-6 bg-gray-300 mx-1 hidden md:block" />
+        {!isImageSelected && (
+          <button
+            type="button"
+            onClick={() => handleAlign("justify")}
+            className={btnClass(isAlignActive("justify"))}
+          >
+            <AlignJustifyIcon />
+          </button>
+        )}
+
+        <div className="w-px h-6 bg-gray-300 mx-1" />
+
+        {/* --- DYNAMIC IMAGE RESIZE CONTROLS --- */}
+        {isImageSelected && (
+          <>
+            <div className="flex items-center gap-1 bg-brand-primary/10 p-1 rounded-lg">
+              <button
+                type="button"
+                onClick={() => setWidth("25%")}
+                className={btnClass(editor.isActive("image", { width: "25%" }))}
+              >
+                <span className="text-[10px] font-black w-6">25%</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setWidth("50%")}
+                className={btnClass(editor.isActive("image", { width: "50%" }))}
+              >
+                <span className="text-[10px] font-black w-6">50%</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setWidth("75%")}
+                className={btnClass(editor.isActive("image", { width: "75%" }))}
+              >
+                <span className="text-[10px] font-black w-6">75%</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setWidth("100%")}
+                className={btnClass(editor.isActive("image", { width: "100%" }))}
+              >
+                <span className="text-[10px] font-black w-6">100%</span>
+              </button>
+            </div>
+            <div className="w-px h-6 bg-gray-300 mx-1" />
+          </>
+        )}
 
         {/* Lists & Blocks */}
         <button

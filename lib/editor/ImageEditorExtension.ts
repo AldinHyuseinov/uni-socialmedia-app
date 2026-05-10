@@ -34,6 +34,50 @@ const handleFile = async (file: File, view: EditorView, coordinates?: { pos: num
 };
 
 export const ImageUploadExtension = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      align: {
+        default: "center",
+        parseHTML: (element) => element.getAttribute("data-align") || "center",
+      },
+      width: {
+        default: "100%",
+        parseHTML: (element) => element.getAttribute("data-width") || "100%",
+      },
+    };
+  },
+
+  // Overwrite how the image is rendered to the DOM to apply the styles
+  renderHTML({ HTMLAttributes }) {
+    const align = HTMLAttributes.align || "center";
+    const width = HTMLAttributes.width || "100%";
+
+    let styles = `width: ${width}; transition: all 0.3s ease;`;
+    const classes = "rounded-xl shadow-lg border border-gray-100 cursor-pointer ";
+
+    // Apply Float logic
+    if (align === "left") {
+      styles += " float: left; margin-right: 1.5rem; margin-bottom: 1rem;";
+    } else if (align === "right") {
+      styles += " float: right; margin-left: 1.5rem; margin-bottom: 1rem;";
+    } else {
+      styles +=
+        " display: block; margin-left: auto; margin-right: auto; margin-top: 1.5rem; margin-bottom: 1.5rem; clear: both;";
+    }
+
+    return [
+      "img",
+      {
+        ...HTMLAttributes,
+        "data-align": align,
+        "data-width": width,
+        style: styles,
+        class: classes,
+      },
+    ];
+  },
+
   addProseMirrorPlugins() {
     return [
       new Plugin({

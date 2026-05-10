@@ -55,7 +55,21 @@ export const createPostAction = validatedAction(PostCreateSchema, async (data) =
         "img",
         "mark",
       ],
-      ALLOWED_ATTR: ["href", "name", "target", "src", "class", "alt", "title", "style"],
+      ALLOWED_ATTR: [
+        "href",
+        "name",
+        "target",
+        "src",
+        "class",
+        "alt",
+        "title",
+        "style",
+        "target",
+        "class",
+        "style",
+        "data-align",
+        "data-width",
+      ],
       ALLOWED_URI_REGEXP:
         /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
     });
