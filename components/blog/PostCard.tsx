@@ -15,8 +15,8 @@ export default function PostCard({ id, title, content, createdAt, author }: Post
       {coverImage && (
         <div className="w-full h-48 overflow-hidden bg-gray-100 relative border-b border-gray-100">
           <Image
-            width={30}
-            height={30}
+            width={800}
+            height={400}
             src={coverImage}
             alt={title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -33,24 +33,28 @@ export default function PostCard({ id, title, content, createdAt, author }: Post
 
       {/* Card Body */}
       <div className="p-6 flex-1 flex flex-col">
-        {/* Title */}
-        <h2 className="text-xl md:text-2xl font-black text-gray-800 uppercase tracking-wide leading-tight mb-4 group-hover:text-brand-primary transition-colors">
+        {/* Title (Will take up remaining space if there is an image to keep footer at bottom) */}
+        <h2
+          className={`text-xl md:text-2xl font-black text-gray-800 uppercase tracking-wide leading-tight group-hover:text-brand-primary transition-colors ${coverImage ? "mb-6 flex-1" : "mb-4"}`}
+        >
           {title}
         </h2>
 
-        {/* RICH TEXT PREVIEW WITH GRADIENT FADE */}
-        <div className="relative flex-1 mb-6">
-          <div
-            className="prose prose-sm prose-blue max-w-none text-gray-600 h-18 overflow-hidden prose-img:hidden prose-headings:text-base prose-headings:m-0 prose-p:m-0 space-y-1"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+        {/* RICH TEXT PREVIEW - ONLY SHOW IF THERE IS NO IMAGE */}
+        {!coverImage && (
+          <div className="relative flex-1 mb-6">
+            <div
+              className="prose prose-sm prose-blue max-w-none text-gray-600 h-18 overflow-hidden prose-img:hidden prose-headings:text-base prose-headings:m-0 prose-p:m-0 space-y-1"
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
 
-          {/* The White Fade-Out Mask */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-linear-to-t from-white to-transparent pointer-events-none" />
-        </div>
+            {/* The White Fade-Out Mask */}
+            <div className="absolute bottom-0 left-0 right-0 h-8 bg-linear-to-t from-white to-transparent pointer-events-none" />
+          </div>
+        )}
 
         {/* Footer: Author & Read Action */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
           <div className="flex items-center gap-2">
             <div className="bg-brand-primary/10 p-1.5 rounded-full text-brand-primary">
               <UserIcon className="w-4 h-4" />
