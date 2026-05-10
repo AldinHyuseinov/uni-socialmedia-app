@@ -7,16 +7,24 @@ import { Suspense } from "react";
 import Toast from "@/components/notification/Toast";
 import Loader from "@/components/Loader";
 import { Metadata } from "next";
+import Pagination from "@/components/Pagination";
 
 export const metadata: Metadata = {
   title: "Stud SU | Начало",
 };
 
-export default async function MainFeedPage() {
-  const [session, posts] = await Promise.all([
+export default async function MainFeedPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const [resolvedParams, session] = await Promise.all([
+    searchParams,
     auth.api.getSession({ headers: await headers() }),
-    getPosts(),
   ]);
+
+  const currentPage = Number(resolvedParams.page) || 1;
+  const { posts, totalPages } = await getPosts(currentPage, 10);
 
   return (
     <Suspense
@@ -69,18 +77,21 @@ export default async function MainFeedPage() {
                 <p className="text-blue-200 text-sm">Бъдете първия, който да направи публикация!</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {posts.map((post) => (
-                  <PostCard
-                    key={post.id}
-                    id={post.id}
-                    title={post.title}
-                    content={post.content}
-                    createdAt={post.createdAt}
-                    author={post.author}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {posts.map((post) => (
+                    <PostCard
+                      key={post.id}
+                      id={post.id}
+                      title={post.title}
+                      content={post.content}
+                      createdAt={post.createdAt}
+                      author={post.author}
+                    />
+                  ))}
+                </div>
+                <Pagination currentPage={currentPage} totalPages={totalPages} />
+              </>
             )}
           </section>
         </div>

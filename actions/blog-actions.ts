@@ -97,20 +97,33 @@ export const createPostAction = validatedAction(PostCreateSchema, async (data) =
   redirect("/?publish-success=true");
 });
 
-export async function getPosts() {
+export async function getPosts(page: number = 1, limit: number = 6) {
+  const skip = (page - 1) * limit;
+
   try {
-    const posts = await prisma.posts.findMany({
-      orderBy: { createdAt: "desc" },
-      include: {
-        author: {
-          select: { name: true },
+    // We use a transaction to run both queries at the exact same time for speed
+    const [posts, totalCount] = await prisma.$transaction([
+      prisma.posts.findMany({
+        skip: skip,
+        take: limit,
+        orderBy: { createdAt: "desc" },
+        include: {
+          author: { select: { name: true, image: true } },
         },
-      },
-    });
-    return posts;
+      }),
+      prisma.posts.count(), // Get the total number of posts in the database
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit);
+
+    return {
+      posts,
+      totalPages,
+      currentPage: page,
+    };
   } catch (error) {
-    console.error("Failed to fetch posts:", error);
-    return [];
+    console.error("Failed to fetch materials:", error);
+    return { posts: [], totalPages: 0, currentPage: 1 };
   }
 }
 
