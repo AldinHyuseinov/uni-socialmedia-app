@@ -42,8 +42,8 @@ export const ImageUploadExtension = Image.extend({
         parseHTML: (element) => element.getAttribute("data-align") || "center",
       },
       width: {
-        default: "100%",
-        parseHTML: (element) => element.getAttribute("data-width") || "100%",
+        default: "50%",
+        parseHTML: (element) => element.getAttribute("data-width") || "50%",
       },
     };
   },
@@ -51,7 +51,7 @@ export const ImageUploadExtension = Image.extend({
   // Overwrite how the image is rendered to the DOM to apply the styles
   renderHTML({ HTMLAttributes }) {
     const align = HTMLAttributes.align || "center";
-    const width = HTMLAttributes.width || "100%";
+    const width = HTMLAttributes.width || "50%";
 
     let styles = `width: ${width}; transition: all 0.3s ease;`;
     const classes = "rounded-xl shadow-lg border border-gray-100 cursor-pointer ";

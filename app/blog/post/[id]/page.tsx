@@ -97,7 +97,7 @@ export default async function ViewBlogPage({ params }: { params: Promise<{ id: s
 
         {/* HTML Content Render */}
         <div
-          className="prose prose-lg prose-blue max-w-none text-gray-800"
+          className="prose prose-lg prose-blue max-w-none text-gray-800 flow-root"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </article>

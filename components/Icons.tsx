@@ -117,7 +117,7 @@ export const ListBulletIcon = ({ className = "w-5 h-5" }: IconProps) => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M4 6h16M4 12h16M4 18h16M8 6h.01M8 12h.01M8 18h.01"
+      d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
     />
   </svg>
 );

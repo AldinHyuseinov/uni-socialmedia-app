@@ -50,7 +50,7 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
     editorProps: {
       attributes: {
         class:
-          "prose prose-blue max-w-none w-full min-h-[400px] focus:outline-none text-gray-800 p-6 md:p-8",
+          "prose prose-lg prose-blue max-w-none w-full min-h-[400px] focus:outline-none text-gray-800 p-6 md:p-8 prose-img:m-0 prose-mark:bg-brand-accent/50 prose-mark:text-brand-navy prose-mark:px-1 prose-mark:rounded-md [&_img.ProseMirror-selectednode]:outline [&_img.ProseMirror-selectednode]:outline-4 [&_img.ProseMirror-selectednode]:outline-brand-primary [&_img.ProseMirror-selectednode]:outline-offset-2",
       },
     },
     onTransaction: () => setForceUpdate((prev) => prev + 1),
