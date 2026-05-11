@@ -26,7 +26,7 @@ export default function PostCard({ id, title, content, createdAt, author }: Post
 
       {/* Card Header: Date */}
       <div className="bg-brand-navy px-6 py-3 flex justify-between items-center text-white">
-        <span className="text-blue-200 text-[10px] font-bold uppercase tracking-widest">
+        <span className="text-blue-200 text-[10px] font-bold tracking-widest">
           {formatDate(createdAt)}
         </span>
       </div>
@@ -35,7 +35,8 @@ export default function PostCard({ id, title, content, createdAt, author }: Post
       <div className="p-6 flex-1 flex flex-col">
         {/* Title (Will take up remaining space if there is an image to keep footer at bottom) */}
         <h2
-          className={`text-xl md:text-2xl font-black text-gray-800 uppercase tracking-wide leading-tight group-hover:text-brand-primary transition-colors ${coverImage ? "mb-6 flex-1" : "mb-4"}`}
+          className={`text-xl md:text-2xl font-black text-gray-800 uppercase tracking-wide leading-tight group-hover:text-brand-primary transition-colors line-clamp-2 wrap-break-word ${coverImage ? "mb-6 flex-1" : "mb-4"}`}
+          title={title}
         >
           {title}
         </h2>
@@ -59,7 +60,7 @@ export default function PostCard({ id, title, content, createdAt, author }: Post
             <div className="bg-brand-primary/10 p-1.5 rounded-full text-brand-primary">
               <UserIcon className="w-4 h-4" />
             </div>
-            <span className="text-gray-700 font-bold text-xs uppercase tracking-wider truncate max-w-30">
+            <span className="text-gray-700 font-bold text-xs tracking-wider truncate max-w-30">
               {author.name || "Анонимен"}
             </span>
           </div>

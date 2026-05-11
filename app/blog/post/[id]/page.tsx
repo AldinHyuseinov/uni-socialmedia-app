@@ -76,13 +76,13 @@ export default async function ViewBlogPage({ params }: { params: Promise<{ id: s
         {/* Header Metadata */}
         <div className="mb-8 border-b border-gray-100 pb-8 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
           <div>
-            <h1 className="text-4xl md:text-5xl font-black text-brand-navy uppercase tracking-wide leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl font-black text-brand-navy tracking-wide leading-tight mb-4 break-all">
               {post.title}
             </h1>
-            <p className="text-gray-500 font-bold uppercase text-xs tracking-wider mb-1">
+            <p className="text-gray-500 font-bold text-xs tracking-wider mb-1">
               Публикувано от: {post.author.name}
             </p>
-            <p className="text-gray-500 font-bold uppercase text-xs tracking-wider">
+            <p className="text-gray-500 font-bold text-xs tracking-wider">
               Дата: {formatDate(post.createdAt)}
             </p>
           </div>

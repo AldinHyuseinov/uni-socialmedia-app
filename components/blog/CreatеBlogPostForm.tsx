@@ -10,6 +10,7 @@ import Loader from "../Loader";
 export default function CreateMaterialForm() {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(createPostAction, {});
   const [htmlContent, setHtmlContent] = useState("");
+  const [titleLength, setTitleLength] = useState((state.values?.title as string)?.length || 0);
 
   // Check if we have any field errors to display in the top summary
   const hasFieldErrors = state.fieldErrors && Object.keys(state.fieldErrors).length > 0;
@@ -41,10 +42,18 @@ export default function CreateMaterialForm() {
         <input
           type="text"
           name="title"
+          maxLength={50}
           defaultValue={state.values?.title as string}
+          onChange={(e) => setTitleLength(e.target.value.length)}
           placeholder="Заглавие на публикацията..."
-          className="w-full text-3xl md:text-5xl font-black text-brand-navy placeholder-gray-300 focus:outline-none bg-transparent"
+          className="w-full text-3xl md:text-5xl font-black text-brand-navy placeholder-gray-300 focus:outline-none bg-transparent pr-16"
         />
+        {/* Character Counter */}
+        <div
+          className={`absolute top-2 right-2 text-xs font-bold ${titleLength >= 50 ? "text-brand-error animate-pulse" : "text-gray-400"}`}
+        >
+          {titleLength}/50
+        </div>
       </div>
 
       {/* RICH TEXT EDITOR */}

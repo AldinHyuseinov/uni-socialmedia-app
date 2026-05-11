@@ -23,6 +23,7 @@ import {
   AlignLeftIcon,
   HighlightIcon,
 } from "@/components/Icons";
+import { processAndInsertImages } from "@/lib/editor/uploadUtils";
 
 export default function RichTextEditor({ content, onChange }: RichTextEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -60,23 +61,18 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
   if (!editor) return null;
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file || !editor) return;
-    setIsUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const response = await fetch("/api/files/upload", { method: "POST", body: formData });
-      if (!response.ok) throw new Error("Грешка при компресията");
-      const data = await response.json();
-      editor.chain().focus().setImage({ src: data.url }).run();
-    } catch (error) {
-      console.error(error);
-      alert("Възникна грешка при качването на изображението.");
-    } finally {
-      setIsUploading(false);
-      if (fileInputRef.current) fileInputRef.current.value = "";
-    }
+    const files = event.target.files;
+    if (!files || files.length === 0 || !editor) return;
+
+    processAndInsertImages({
+      files,
+      view: editor.view,
+      onStart: () => setIsUploading(true),
+      onEnd: () => {
+        setIsUploading(false);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+      },
+    });
   };
 
   const setWidth = (width: string) => {
@@ -113,6 +109,7 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       <input
         type="file"
         accept="image/*"
+        multiple
         ref={fileInputRef}
         onChange={handleImageUpload}
         className="hidden"

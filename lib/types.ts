@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import * as z from "zod";
+import { EditorView } from "@tiptap/pm/view";
 
 export type ActionState = {
   error?: string;
@@ -38,7 +39,10 @@ export const UserSignInSchema = z.object({
 });
 
 export const PostCreateSchema = z.object({
-  title: z.string().min(2, "Заглавието трябва да е поне 2 символа."),
+  title: z
+    .string()
+    .min(2, "Заглавието трябва да е поне 2 символа.")
+    .max(50, "Заглавието не може да бъде по-дълго от 50 символа."),
   content: z.string().min(2, "Съдържанието трябва да е поне 2 символа."),
 });
 
@@ -88,6 +92,14 @@ export interface PostProps {
   content: string;
   createdAt: Date;
   author: { name: string; image?: string | null };
+}
+
+export interface UploadOptions {
+  files: FileList | File[];
+  view: EditorView;
+  coordinates?: { pos: number };
+  onStart?: () => void;
+  onEnd?: () => void;
 }
 
 export type AlertBannerProps = {
